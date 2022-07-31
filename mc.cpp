@@ -74,7 +74,8 @@ int main()
     // Margin of Error
     double moe = ts*se;
 
-    std::cout << "We are 95 percent confident that the option price will be between " << stock - moe << " and " << stock + moe << std::endl;
+    std::cout << "We are 95 percent confident that the stock price" << std::endl;
+    std::cout << "will be between " << stock - moe << " and " << stock + moe << std::endl;
 
 
     return 0;
