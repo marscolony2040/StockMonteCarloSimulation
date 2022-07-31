@@ -1,6 +1,7 @@
 #define USE_MATH_DEFINES
 #include <math.h>
 #include <iostream>
+#include <vector>
 
 // Gives a random number between an inputted range
 double randnum(double cmin, double cmax)
@@ -29,6 +30,21 @@ double Stochastic(double S, double Mu, double V, double dT)
     return S*exp(dT*(A + B));
 }
 
+// Calculates the standard error of the simulated price
+double StdErr(std::vector<double> x)
+{
+    double n = x.size();
+    double mean, stdev;
+    for(auto & k : x){
+        mean += k;
+    }
+    mean /= n;
+    for(auto & k : x){
+        stdev += pow((k - mean), 2);
+    }
+    stdev /= (n - 1);
+    return stdev / sqrt(n);
+}
 
 int main()
 {
@@ -40,11 +56,26 @@ int main()
     double n = 100;
     double dT = t / n;
 
+    // Holds simulated prices
+    std::vector<double> store;
+
     // Simulate stock prices
     for(int i = 0; i < n; ++i){
-        std::cout << stock << std::endl;
+        store.push_back(stock);
         stock = Stochastic(stock, mu, vh, dT);
     }
+
+    // Standard Error
+    double se = StdErr(store);
+
+    // Critical Value
+    double ts = NORMINV(0.05);
+
+    // Margin of Error
+    double moe = ts*se;
+
+    std::cout << "We are 95 percent confident that the option price will be between " << stock - moe << " and " << stock + moe << std::endl;
+
 
     return 0;
 }
