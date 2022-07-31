@@ -6,4 +6,4 @@ A monte carlo simulation of a stock price for a series of steps (inputted n)
 g++ mc.cpp -std=c++11
 ```
 # Results
-![alt](https://github.com/marscolony2040/StockMonteCarloSimulation/blob/main/HH.png)
+![alt](https://github.com/marscolony2040/StockMonteCarloSimulation/blob/main/Show.png)
